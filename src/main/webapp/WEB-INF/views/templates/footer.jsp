@@ -86,8 +86,21 @@
       </div>
     </footer>
     <!-- End: FOOTER -->
-    <script type="text/javascript" src="resources/js/jquery.min.js"></script>
-    <script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="resources/js/boot-business.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/boot-business.js"></script>
+    <%-- <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/angular.1.0.2.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/controller.js"></script> --%>
+    <script src="${pageContext.request.contextPath}/resources/js/angular.1.0.1.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/controller.js"/></script>
   </body>
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </html>

@@ -10,9 +10,23 @@
                 <h1>${product.productName} <small>Caption for the product</small></h1>
               </div>
             </div>
-            <div class="span12 center-align">
+            <div class="span12 center-align" ng-app="cartApp">
               
-              <img alt="Picture" src= "<c:url value="/resources/img/${product.productId}.png"/>" class="thumbnail product-snap">          
+              <img alt="Picture" src= "<c:url value="/resources/img/${product.productId}.png"/>" class="thumbnail product-snap"> 
+               <hr>
+						<c:set var="role" scope="page" value="${param.role}"/>
+						<c:set var="url" scope="page" value="/productList"/>
+						<c:if test="${role=='admin'}">
+							<c:set var="url" scope="page" value="/admin/productInventory"/>
+						</c:if>
+						
+						<p ng-controller="cartCtrl">
+						    <a href="#" ng-click="testCart()" class="btn btn-warning">Test Angular</a>
+							<a href="<c:url value="${url}"/>" class="btn btn-primary">Back</a>
+							<a href="#" ng-click="addToCart('${product.productId}')" class="btn btn-success">Order Now</a>
+							<a href= "<spring:url value="/cart" />" class="btn btn-default" >View Cart</a>
+                       </p>    
+               <hr>            
             </div>
           </div>
           <div class="row">
@@ -66,6 +80,9 @@
               </div>                                              
             </div>      
           </div>
+          
+          
+          
           <div class="row">
             <div class="span10 offset1">
               <hr>
