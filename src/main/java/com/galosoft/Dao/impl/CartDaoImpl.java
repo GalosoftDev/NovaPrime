@@ -1,56 +1,54 @@
 package com.galosoft.Dao.impl;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.galosoft.Dao.CartDao;
 import com.galosoft.model.Cart;
-
+import com.galosoft.service.CustomerOrderService;
 
 @Repository
 @Transactional
 public class CartDaoImpl implements CartDao{
 	
-	private Map<String, Cart> listOfCarts;
+	@Autowired
+	private CustomerOrderService customerOrderService;
 	
-	public CartDaoImpl() {
-		listOfCarts = new HashMap<String, Cart>();
-	}
-	
-	
+	@Autowired
+	private SessionFactory sessionFactory;
 
 	@Override
-	public Cart create(Cart cart) {
-		if(listOfCarts.keySet().contains(cart.getCartId())) {
-			throw new IllegalArgumentException(String.format("Cant not create a cart id:(%)", cart.getCartId()));
-		}
-		listOfCarts.put(cart.getCartId(), cart);
-		return cart;
+	public Cart getCartById(int cartId) {
+		Session session = sessionFactory.getCurrentSession();
+		return (Cart) session.get(Cart.class, cartId);
 	}
 
 	@Override
-	public Cart read(String cartId) {
-		return listOfCarts.get(cartId);
-	}
-
-	@Override
-	public void update(String cartId, Cart cart) {
-		if(!listOfCarts.keySet().contains(cartId)) {
-			throw new IllegalArgumentException(String.format("Cant not create a cart id:(%)", cart.getCartId()));
-		}
-		listOfCarts.put(cartId, cart);
-	}
-
-	@Override
-	public void delete(String cartId) {
-		if(!listOfCarts.keySet().contains(cartId)) {
-			throw new IllegalArgumentException(String.format("Cant not create a cart id:(%)", cartId));
-		}
-		listOfCarts.remove(cartId);
+	public void update(Cart cart) {
+		int cartId = cart.getCartId();
+		double grandTotal = customerOrderService.getCustomerOrderGrandTotal(cartId);
+		cart.setGrandTotal(grandTotal);
+		
+		Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(cart);
 		
 	}
-
+	
+	@Override
+	public Cart validate(int cartId) throws IOException {
+		Cart cart = getCartById(cartId);
+		if(cart == null || cart.getCartItems().size() == 0) {
+			throw new IOException(cartId+"");
+		}
+		update(cart);
+		return cart;
 }
+	
+	
+}
+

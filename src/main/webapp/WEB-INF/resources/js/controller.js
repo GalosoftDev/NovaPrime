@@ -2,14 +2,14 @@ var cartApp = angular.module("cartApp", []);
 
 cartApp.controller("cartCtrl", function($scope, $http){
 	
-	$scope.refreshCart = function(cartId) {
+	$scope.refreshCart = function() {
 		$http.get('/NovaPrime/rest/cart/'+$scope.cartId).success(function(data) {
 			$scope.cart = data;
 		});
 	};
 	
 	$scope.clearCart = function() {
-		$http.delete('/NovaPrime/rest/cart/'+$scope.cartId).success($scope.refreshCart($scope.cartId));
+		$http.delete('/NovaPrime/rest/cart/'+$scope.cartId).success($scope.refreshCart());
 	};
 	
 
@@ -23,15 +23,24 @@ cartApp.controller("cartCtrl", function($scope, $http){
 	};
 	
 	$scope.addToCart = function(productId){
-		$http.put('/NovaPrime/rest/cart/add/'+productId).success(function(data){
-			$scope.refreshCart($http.get('/NovaPrime/rest/cart/cartId'));
+		$http.put('/NovaPrime/rest/cart/add/'+productId).success(function(){
 			alert("Product added to cart");
 		});
 	};
 	
 	$scope.removeFromCart = function(productId){
 		$http.put('/NovaPrime/rest/cart/remove/'+productId).success(function(data){
-			$scope.refreshCart($http.get('/NovaPrime/rest/cart/cartId'));
+			$scope.refreshCart();
 		});	
 	};
+	
+	$scope.calGrandTotal = function(){
+		var grandTotal = 0;
+		
+		for(var i=0; i<$scope.cart.cartItems.length; i++ ){
+		   grandTotal += $scope.cart.cartItems[i].totalPrice;
+		}
+		return grandTotal;
+	};
+
 });

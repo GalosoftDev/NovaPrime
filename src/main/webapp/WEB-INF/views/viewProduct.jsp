@@ -14,18 +14,18 @@
               
               <img alt="Picture" src= "<c:url value="/resources/img/${product.productId}.png"/>" class="thumbnail product-snap"> 
                <hr>
-						<c:set var="role" scope="page" value="${param.role}"/>
-						<c:set var="url" scope="page" value="/productList"/>
-						<c:if test="${role=='admin'}">
-							<c:set var="url" scope="page" value="/admin/productInventory"/>
-						</c:if>
-						
-						<p ng-controller="cartCtrl">
-						    <a href="#" ng-click="testCart()" class="btn btn-warning">Test Angular</a>
-							<a href="<c:url value="${url}"/>" class="btn btn-primary">Back</a>
-							<a href="#" ng-click="addToCart('${product.productId}')" class="btn btn-success">Order Now</a>
-							<a href= "<spring:url value="/cart" />" class="btn btn-default" >View Cart</a>
-                       </p>    
+				<c:set var="role" scope="page" value="${param.role}"/>
+				<c:set var="url" scope="page" value="/product/productList"/>
+				<c:if test="${role=='admin'}">
+					<c:set var="url" scope="page" value="/admin/productInventory"/>
+				</c:if>
+				
+				<p ng-controller="cartCtrl">		
+				    <a href="#" class="btn btn-default" ng-click="testCart()">Test Angular</a>
+					<a href= "<c:url value="${url}"/>" class="btn btn-primary">Back</a>
+					<a href="#" class="btn btn-warning" ng-click="addToCart('${product.productId}')">Order Now</a> 
+					<a href="<spring:url value="/customer/cart"/>" class="btn btn-success">View Cart</a>
+               </p> 
                <hr>            
             </div>
           </div>

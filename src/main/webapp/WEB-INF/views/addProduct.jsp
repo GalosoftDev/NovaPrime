@@ -10,7 +10,7 @@
 		</div>
 		
 		<div class="row span6">
-			<form:form action="${pageContext.request.contextPath}/admin/productInventory/addProduct" 
+			<form:form action="${pageContext.request.contextPath}/admin/product/addProduct" 
 			method="post" commandName="product" enctype="multipart/form-data">
 			
 				<div class="form-group">

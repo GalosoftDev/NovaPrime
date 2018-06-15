@@ -1,11 +1,12 @@
 package com.galosoft.Dao;
 
+import java.io.IOException;
+
 import com.galosoft.model.Cart;
 
 public interface CartDao {
-	
-	Cart create(Cart cart);
-	Cart read(String cartId);
-	void update(String cartId, Cart cart);
-	void delete(String cartId);
+
+	Cart getCartById(int cartId);
+	void update(Cart cart);
+	Cart validate(int cartId) throws IOException;
 }

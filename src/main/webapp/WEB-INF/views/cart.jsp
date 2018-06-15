@@ -17,6 +17,7 @@
 			  <div ng-controller="cartCtrl" ng-init="initCartId('${cartId}')">
 				<div>
 					<a class="btn btn-danger pull-left" ng-click="clearCart()">Clear Cart</a>
+					<a href="<spring:url value="/order/${cartId}"/>" class="btn btn-success pull-right"> Checkout</a>
 				</div>
 				<table class="table table-hover">
 					<tr>
@@ -38,17 +39,18 @@
 						<th></th>
 						<th></th>
 						<th>Grand Total</th>
-						<th>{{cart.grandTotal}}</th>
+						<th>{{calGrandTotal()}}</th>
 						<th></th>
 					</tr>
 				</table>
-				
-				<a href="<spring:url value="/productList" />" class="btn btn-default">Continue shopping</a>
+				 <a href="#" class="btn btn-default" ng-click="testCart()">Test Angular</a>
+				<a href="<spring:url value="/product/productList" />" class="btn btn-default">Continue shopping</a>
 			</div>
 		</section>
 			
 		</div>
-</div>
+    </div>
+	
 
 <%@ include file="/WEB-INF/views/templates/footer.jsp" %>
 

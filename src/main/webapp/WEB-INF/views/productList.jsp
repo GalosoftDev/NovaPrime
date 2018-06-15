@@ -25,7 +25,7 @@
 	                  <div class="widget-footer">
 	                    <p>
 	                      <a href="#" class="btn btn-primary">Buy now</a>&nbsp;
-	                     <a href="<spring:url value="/productList/viewProduct/${product.productId}"/>" class="btn btn-default">Ver mas</a>
+	                     <a href="<spring:url value="/product/viewProduct/${product.productId}"/>" class="btn btn-default">Ver mas</a>
 	                    </p>
 	                  </div>
 	                </div>

@@ -1,19 +1,30 @@
 package com.galosoft.model;
 
+import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-public class Product {
+public class Product implements Serializable{
+	
+	private static final long serialVersionUID = 6771712325906358875L;
+	
 	@Id 
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String productId;
+	private int productId;
 	@NotEmpty(message = "Product name cant be null")
 	private String productName;
 	private String productDes;
@@ -26,12 +37,15 @@ public class Product {
 	private int unitInStock;
 	@Transient
 	private MultipartFile productImage;
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch= FetchType.EAGER)
+	@JsonIgnore
+	private List<CartItem> cartItemList;
 	
 	
-	public String getProductId() {
+	public int getProductId() {
 		return productId;
 	}
-	public void setProductId(String productId) {
+	public void setProductId(int productId) {
 		this.productId = productId;
 	}
 	public String getProductName() {
@@ -83,7 +97,12 @@ public class Product {
 	public void setProductImage(MultipartFile productImage) {
 		this.productImage = productImage;
 	}
+	public List<CartItem> getCartItemList() {
+		return cartItemList;
+	}
+	public void setCartItemList(List<CartItem> cartItemList) {
+		this.cartItemList = cartItemList;
+	}
 	
-    
 
 }

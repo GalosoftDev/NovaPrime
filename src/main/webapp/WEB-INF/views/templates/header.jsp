@@ -44,15 +44,28 @@
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products<b class="caret"></b></a>
                   <ul class="dropdown-menu">
                     <li class="nav-header">PRODUCTS</li>
-                    <li><a href="all_products.html">All products</a></li> 
+                    <li><a href= "<c:url value="/product/productList"/>" >All products</a></li> 
                     <li><a href="product.html">Product Detail</a></li>            
                   </ul>                  
                 </li>
                 <li><a href="leadership.html">About us</a></li>
                 <li><a href="contact_us.html">Contact us</a></li>
-                <li><a href="signup.html">Register</a></li>
-                <li><a href="signin.html">Sign in</a></li>
-                <li><a href= "<c:url value="admin"/>" >Admin</a></li>
+                
+                 <c:if test="${pageContext.request.userPrincipal.name != null}">	
+                	<li><a>Welcome:${pageContext.request.userPrincipal.name} </a></li>
+                	<li><a href= "<c:url value="/j_spring_security_logout " />" >Logout</a></li>
+                	<c:if test="${pageContext.request.userPrincipal.name != 'admin'}">
+                		<li><a href="<c:url value="/customer/cart"/>">Cart</a></li>
+                	</c:if>
+                	<c:if test="${pageContext.request.userPrincipal.name == 'admin'}">
+                		<li><a href="<c:url value="/admin"/>">Admin</a></li>
+                	</c:if>
+                </c:if>
+                <c:if test="${pageContext.request.userPrincipal.name == null}">
+                	<li><a href= "<c:url value="/login"/>" >Login</a></li>
+                    <li><a href= "<c:url value="/register"/>" >Register</a></li>
+				</c:if>
+                
               </ul>
             </div>
           </div>
